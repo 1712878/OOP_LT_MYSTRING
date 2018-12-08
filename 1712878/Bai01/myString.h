@@ -12,14 +12,12 @@ void m_strncpy(char* dest, const char* src, int n);
 void m_strncpy(char* dest, const char* src, int pos, int len);
 const int _DEFAULT_SIZE = 4;
 const size_t _MAX_LENGTH = 1024;
-const size_t _MAX_SIZE = 4294967291;
 const int npos = -1;
 class MyString
 {
 private:
 	char *m_str;
 	int m_size;
-	int m_reserved_size;
 public:
 	//Member functions
 	MyString();
@@ -50,31 +48,21 @@ public:
 	reverse_iterator rend();
 	const_reverse_iterator rend() const;
 	//.............
+
 	//Capacity:
 	size_t size() const;
 	size_t length() const;
-	size_t max_size() const;
+	//size_t max_size() const;
 	void resize(size_t n);
 	void resize(size_t n, char c);
+
+	//Element access:
+	char& operator[] (size_t pos);
+	const char& operator[] (size_t pos) const;
+
 	friend MyString operator+ (const MyString& lhs, const MyString& rhs);
 	friend istream& operator >> (istream& inDev, MyString& mstr)
 	{
-		/*mstr.m_size = 0;
-		char c;
-		mstr.m_str = NULL;
-		while (1)
-		{
-			inDev >> c;
-			if (c == ' ' || c == '\n')
-			{
-				mstr.m_str[mstr.m_size] = '\0';
-				break;
-			}
-			mstr.m_str = (char*)realloc(mstr.m_str, mstr.m_size + 1);
-			mstr.m_str[mstr.m_size] = c;
-			mstr.m_size++;
-		}
-		mstr.m_reserved_size = mstr.m_size + _DEFAULT_SIZE;*/
 		char* s= new char[_MAX_LENGTH];
 		inDev >> s;
 		mstr = s;

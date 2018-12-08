@@ -39,9 +39,9 @@ void TestBeginEnd()
 
 int main()
 {
-	/*TestContructor();
-	TestOperatorEqual();
-	TestBeginEnd();*/
+	//TestContructor();
+	//TestOperatorEqual();
+	//TestBeginEnd();
 	/*fstream fp;
 	fp.open("a.txt", ios::in);
 	if (!fp.fail())
@@ -50,11 +50,14 @@ int main()
 		fp >> kq;
 		cout << kq;
 	}*/
-	MyString s;
-	cin >> s;
-	cout << s << endl;
-	cout << sizeof(s);
+	MyString s("nguyen tho tuan");
+	cout << "s: " << s << endl;
+	int size = s.size();
+	cout << "size = " << size << endl;
+	s.resize(size+2);
+	s[size] = 'a';
 
+	cout << s;
 	system("pause");
 	return 0;
 }

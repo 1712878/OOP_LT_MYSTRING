@@ -56,8 +56,7 @@ MyString operator+(const MyString & lhs, const MyString & rhs)
 {
 	MyString result;
 	result.m_size = lhs.m_size + rhs.m_size;
-	result.m_reserved_size = result.m_size + _DEFAULT_SIZE;
-	result.m_str = new char[result.m_reserved_size + 1];
+	result.m_str = new char[result.m_size + 1];
 	m_strcpy(result.m_str, lhs.m_str);
 	m_strcpy(result.m_str+lhs.m_size, rhs.m_str);
 	return result;
@@ -67,16 +66,14 @@ MyString operator+(const MyString & lhs, const MyString & rhs)
 MyString::MyString()
 {
 	this->m_size = 0;
-	this->m_reserved_size = _DEFAULT_SIZE;
-	this->m_str = new char[this->m_reserved_size + 1];
+	this->m_str = new char[this->m_size + 1];
 	this->m_str[0] = '\0';
 }
 
 MyString::MyString(const MyString &str)
 {
 	this->m_size = str.m_size;
-	this->m_reserved_size = str.m_reserved_size;
-	this->m_str = new char[this->m_reserved_size + 1];
+	this->m_str = new char[this->m_size + 1];
 	m_strcpy(this->m_str, str.m_str);
 }
 
@@ -85,15 +82,13 @@ MyString::MyString(const MyString &str, size_t pos, size_t len)
 	if (len == npos)
 	{
 		this->m_size = str.m_size - pos;
-		this->m_reserved_size = this->m_size + _DEFAULT_SIZE;
-		this->m_str = new char[this->m_reserved_size + 1];
+		this->m_str = new char[this->m_size + 1];
 		m_strncpy(this->m_str, str.m_str, pos);
 	}
 	else
 	{
 		this->m_size = len;
-		this->m_reserved_size = len + _DEFAULT_SIZE;
-		this->m_str = new char[this->m_reserved_size + 1];
+		this->m_str = new char[this->m_size + 1];
 		m_strncpy(this->m_str, str.m_str, pos, len);
 	}
 }
@@ -101,8 +96,7 @@ MyString::MyString(const MyString &str, size_t pos, size_t len)
 MyString::MyString(const char* s)
 {
 	this->m_size = m_strlen(s);
-	this->m_reserved_size = this->m_size + _DEFAULT_SIZE;
-	this->m_str = new char[this->m_reserved_size + 1];
+	this->m_str = new char[this->m_size + 1];
 	m_strcpy(this->m_str, s);
 }
 
@@ -110,16 +104,14 @@ MyString::MyString(const char* s, size_t n)
 {
 	int l = m_strlen(s);
 	this->m_size = (l <= n)*l + (l > n)*n;
-	this->m_reserved_size = this->m_size + _DEFAULT_SIZE;
-	this->m_str = new char[this->m_reserved_size + 1];
+	this->m_str = new char[this->m_size + 1];
 	m_strncpy(this->m_str, s, this->m_size);
 }
 
 MyString::MyString(size_t n, char c)
 {
 	this->m_size = n;
-	this->m_reserved_size = n + _DEFAULT_SIZE;
-	this->m_str = new char[this->m_reserved_size + 1];
+	this->m_str = new char[this->m_size + 1];
 	for (int i = 0; i < n; i++)
 		this->m_str[i] = c;
 	this->m_str[n] = '\0';
@@ -131,15 +123,13 @@ MyString::~MyString()
 	delete[] this->m_str;
 	this->m_str = NULL;
 	this->m_size = 0;
-	this->m_reserved_size = 0;
 }
 
 //Member functions/Operator =
 MyString & MyString::operator=(const MyString & str)
 {
 	this->m_size = str.m_size;
-	this->m_reserved_size = str.m_reserved_size;
-	this->m_str = new char[this->m_reserved_size + 1];
+	this->m_str = new char[this->m_size + 1];
 	m_strcpy(this->m_str, str.m_str);
 	return *this;
 }
@@ -147,8 +137,7 @@ MyString & MyString::operator=(const MyString & str)
 MyString & MyString::operator=(const char* s)
 {
 	this->m_size = m_strlen(s);
-	this->m_reserved_size = this->m_size + _DEFAULT_SIZE;
-	this->m_str = new char[this->m_reserved_size + 1];
+	this->m_str = new char[this->m_size + 1];
 	m_strcpy(this->m_str, s);
 	return *this;
 }
@@ -156,8 +145,7 @@ MyString & MyString::operator=(const char* s)
 MyString & MyString::operator=(char c)
 {
 	this->m_size = 1;
-	this->m_reserved_size = 1 + _DEFAULT_SIZE;
-	this->m_str = new char[this->m_reserved_size + 1];
+	this->m_str = new char[this->m_size + 1];
 	this->m_str[0] = c;
 	this->m_str[1] = '\0';
 	return *this;
@@ -214,26 +202,46 @@ size_t MyString::length() const
 	return this->m_size;
 }
 
-size_t MyString::max_size() const
-{
-	return  _MAX_SIZE;
-}
 
 void MyString::resize(size_t n)
 {
-	if (n > this->m_size)
+	int len = n - this->m_size;
+	if (len >0)
 	{
-		if (n > this->m_reserved_size)
-		{
-			this->m_reserved_size = n;
-			char* s = new char[n];
-			m_strcpy(s, this->m_str);
-	
-		}
+		this->m_str = (char*)realloc(this->m_str, n * sizeof(char));
+		/*for (int i = 0; i < len-1; i++)
+			this->m_str[m_size + i] = ' ';
+		this->m_str[n] = '\0';*/
+		this->m_size = n;
+	}
+	else
+	{
+		this->m_size = n;
+		m_strncpy(this->m_str, this->m_str, n);
 	}
 }
 
 void MyString::resize(size_t n, char c)
 {
+}
+
+char & MyString::operator[](size_t pos)
+{
+	char x;
+	if (pos < this->m_size)
+		x=this->m_str[pos];
+	else 
+		x = ' ';
+	return x;
+}
+
+const char & MyString::operator[](size_t pos) const
+{
+	char x;
+	if (pos < this->m_size)
+		x = this->m_str[pos];
+	else
+		x = ' ';
+	return x;
 }
 
