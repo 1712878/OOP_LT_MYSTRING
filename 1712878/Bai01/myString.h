@@ -62,7 +62,6 @@ public:
 	bool empty() const;
 	void shrink_to_fit();
 
-
 	//Element access:
 	char& operator[] (size_t pos);
 	const char& operator[] (size_t pos) const;
@@ -72,6 +71,32 @@ public:
 	const char& back() const;
 	char& front();
 	const char& front() const;
+
+	//Modifiers
+	MyString& operator+= (const MyString& str);
+	MyString& operator+= (const char* s);
+	MyString& operator+= (char c);
+
+	MyString& append(const MyString& str);
+	MyString& append(const MyString& str, size_t subpos, size_t sublen);
+	MyString& append(const char* s);
+	MyString& append(const char* s, size_t n);
+	MyString& append(size_t n, char c);
+	//template <class InputIterator>
+	//MyString& append(InputIterator first, InputIterator last);
+	//MyString& append(initializer_list<char> il);
+
+	void push_back(char c);
+
+	MyString& assign(const MyString& str);
+	MyString& assign(const MyString& str, size_t subpos, size_t sublen);
+	MyString& assign(const char* s);
+	MyString& assign(const char* s, size_t n);
+	MyString& assign(size_t n, char c);
+	//template <class InputIterator>
+	//MyString& assign(InputIterator first, InputIterator last);
+	//MyString& assign(initializer_list<char> il);
+	//MyString& assign(MyString&& str) noexcept;
 
 	friend MyString operator+ (const MyString& lhs, const MyString& rhs);
 	friend istream& operator >> (istream& inDev, MyString& mstr)

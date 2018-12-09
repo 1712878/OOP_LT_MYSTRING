@@ -1,8 +1,11 @@
 #include "Test.h"
-void Contructor()
+
+void MemberFunctions()
 {
+	std::cout << "\n\n---MemberFunctions---\n";
+
+	cout << "\t1. constructor\n";
 	//http://www.cplusplus.com/reference/string/string/string/
-	cout << "\nCONTRUCTOR" << endl;
 	MyString s0("Initial string");
 	// constructors used in the same order as described above:
 	MyString s1;
@@ -16,12 +19,11 @@ void Contructor()
 	std::cout << "s1: " << s1 << "\ns2: " << s2 << "\ns3: " << s3;
 	std::cout << "\ns4: " << s4 << "\ns5: " << s5 << "\ns6a: " << s6a;
 	std::cout << "\ns6b: " << s6b << "\ns7: " << /*s7 <<*/ '\n';
-}
 
-void OperatorEqual()
-{
+	std::cout << "\t2. destuctor\n";
+
+	std::cout << "\t3. operator\n";
 	//http://www.cplusplus.com/reference/string/string/operator=/
-	cout << "\nOPERATOREQUAL" << endl;
 	MyString str1, str2, str3;
 	str1 = "Test string: ";   // c-string
 	str2 = 'x';               // single character
@@ -29,59 +31,97 @@ void OperatorEqual()
 	std::cout << str3 << '\n';
 }
 
-void BeginEnd()
+void Iterators()
 {
-	//http://www.cplusplus.com/reference/string/string/end/
-	cout << "\nBEGINEND" << endl;
+	std::cout << "\n\n---Iterators---\n";
 	MyString str("Test string");
+	std::cout << "str = " << str << '\n';
+
+	std::cout << "1. iterator it: begin -> end\n";
 	for (MyString::iterator it = str.begin(); it != str.end(); ++it)
 		std::cout << *it;
 	std::cout << '\n';
 }
 
-void SizeLengthCapacityMax_size()
+void Capacity()
 {
-	cout << "\nSIZELENGTHCAPACITYMAXSIZE" << endl;
-	MyString str("Test string");
-	std::cout << "size: " << str.size() << "\n";
-	std::cout << "length: " << str.length() << "\n";
-	std::cout << "capacity: " << str.capacity() << "\n";
-	std::cout << "max_size: " << str.max_size() << "\n";
-}
+	std::cout << "\n\n---Iterators---\n";
+	MyString str("Nguyen Tho Tuan");
 
-void Resize()
-{
-	//http://www.cplusplus.com/reference/string/string/capacity/
-	cout << "\nRESIZE" << endl;
-	MyString str("I like to code in C");
-	std::cout << str << '\n';
-	unsigned sz = str.size();
-	str.resize(sz + 2, '+');
-	std::cout << str << '\n';
-	str.resize(14);
-	std::cout << str << '\n';
-}
-
-void ClearEmty()
-{
-	cout << "\nCLEAREMPTY" << endl;
-	MyString s = "Nguyen Tho Tuan";
-	std::cout << "s= " << s << endl;
-	std::cout << "Check s.empty(): " << s.empty() << endl;
-	s.clear();
-	std::cout << "Check s.empty() after s.clear(): " << s.empty() << endl;
-}
-
-void ShrinkToFit()
-{
-	//http://www.cplusplus.com/reference/string/string/shrink_to_fit/
-	cout << "\nSHRINKTOFIT" << endl;
-	MyString str(100, 'x');
-	std::cout << "1. capacity of str: " << str.capacity() << '\n';
-
+	std::cout << "str = " << str << '\n';
+	std::cout << "1. str.size()    : " << str.size() << "\n";
+	std::cout << "2. str.length()  : " << str.length() << "\n";
+	str.resize(str.size() + 2, '+');
+	std::cout << "3. str.resize(str.size()+2,'+'): " << str << "\n";
+	str.resize(str.size() - 2);
+	std::cout << "4. str.resize(str.size()-2,'+'): " << str << "\n";
+	std::cout << "5. str.max_size(): " << str.max_size() << "\n";
+	std::cout << "6. str.capacity(): " << str.capacity() << "\n";
+	std::cout << "7. str.capacity(): " << str.capacity() << "\n";
+	std::cout << "8. str.empty(): " << str.empty() << "\n";
+	str.clear();
+	std::cout << "9. str.empty() after s.clear(): " << str.empty() << "\n";
+	str = "Nguyen Tho Tuan";
+	std::cout << "str = " << str << '\n';
 	str.resize(10);
-	std::cout << "2. capacity of str: " << str.capacity() << '\n';
-
+	std::cout << "10. str.capacity() after str.resize(10): " << str.capacity() << '\n';
 	str.shrink_to_fit();
-	std::cout << "3. capacity of str: " << str.capacity() << '\n';
+	std::cout << "11. str.capacity() after str.shrink_to_fit(): " << str.capacity() << '\n';
+}
+
+void ElementAccess()
+{
+	std::cout << "\n\n---ElementAccess---\n";
+	MyString str("test string.");
+
+	std::cout << "\t1. operator[]\n";
+	for (int i = 0; i < str.length(); ++i)
+	{
+		std::cout << str[i];
+	}
+
+	std::cout << "\n\t2. at\n";
+	for (unsigned i = 0; i < str.length(); ++i)
+	{
+		std::cout << str.at(i);
+	}
+
+	std::cout << "\n\t3. back\n";
+	str.back() = '!';
+	std::cout << str << '\n';
+
+	std::cout << "\t4. back\n";
+	str.front() = 'T';
+	std::cout << str << '\n';
+}
+
+void Modifiers()
+{
+	std::cout << "\n\n---Modifiers---\n";
+
+	std::cout << "1. operator+=\n";
+	MyString name("John");
+	MyString family("Smith");
+	name += " K. ";         // c-string
+	name += family;         // string
+	name += '\n';           // character
+	std::cout << name;
+
+	MyString str = "Start ";
+	MyString str2 = "Writing ";
+	MyString str3 = "print 10 and then 5 more";
+
+	std::cout << "2. operator+=\n";
+	// used in the same order as described above:
+	str.append(str2);                       // "Writing "
+	str.append(str3, 6, 3);                   // "10 "
+	str.append("dots are cool", 5);          // "dots "
+	str.append("here: ");                   // "here: "
+	str.append(10u, '.');                    // ".........."
+	std::cout << str << '\n';
+
+	std::cout << "3. push_back\n";
+	MyString s = "nguyen tho tua";
+	s.push_back('n');
+	cout << s << endl;
 }

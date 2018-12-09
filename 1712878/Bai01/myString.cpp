@@ -285,22 +285,12 @@ void MyString::shrink_to_fit()
 //Element access:
 char & MyString::operator[](size_t pos)
 {
-	char x;
-	if (pos < this->m_size)
-		x=this->m_str[pos];
-	else 
-		x = ' ';
-	return x;
+	return this->m_str[pos];
 }
 
 const char & MyString::operator[](size_t pos) const
 {
-	char x;
-	if (pos < this->m_size)
-		x = this->m_str[pos];
-	else
-		x = ' ';
-	return x;
+	return this->m_str[pos];
 }
 
 char & MyString::at(size_t pos)
@@ -315,20 +305,132 @@ const char & MyString::at(size_t pos) const
 
 char & MyString::back()
 {
-	// TODO: insert return statement here
+	return this->m_str[this->m_size-1];
 }
 
 const char & MyString::back() const
 {
-	// TODO: insert return statement here
+	return this->m_str[this->m_size - 1];
 }
 
 char & MyString::front()
 {
-	// TODO: insert return statement here
+	return this->m_str[0];
 }
 
 const char & MyString::front() const
+{
+	return this->m_str[0];
+}
+
+//Modifiers
+MyString & MyString::operator+=(const MyString & str)
+{
+	int n = this->m_size;
+	this->m_size += str.m_size;
+	if (this->m_size > this->m_reserved_size)
+	{
+		this->m_reserved_size = this->m_size + _DEFAULT_SIZE;
+		this->m_str = (char*)realloc(this->m_str, (this->m_reserved_size + 1)*(sizeof(char)));
+	}
+	m_strcpy(this->m_str + n, str.m_str);
+	return *this;
+}
+
+MyString & MyString::operator+=(const char * s)
+{
+	int n = this->m_size;
+	this->m_size += m_strlen(s);
+	if (this->m_size > this->m_reserved_size)
+	{
+		this->m_reserved_size = this->m_size + _DEFAULT_SIZE;
+		this->m_str = (char*)realloc(this->m_str, (this->m_reserved_size + 1)*(sizeof(char)));
+	}
+	m_strcpy(this->m_str + n, s);
+	return *this;
+}
+
+MyString & MyString::operator+=(char c)
+{
+	int n = this->m_size;
+	this->m_size++;
+	if (this->m_size > this->m_reserved_size)
+	{
+		this->m_reserved_size = this->m_size + _DEFAULT_SIZE;
+		this->m_str = (char*)realloc(this->m_str, (this->m_reserved_size + 1)*(sizeof(char)));
+	}
+	this->m_str[n] = c;
+	this->m_str[this->m_size] = '\0';
+	return *this;
+}
+
+MyString & MyString::append(const MyString & str)
+{
+	*this += str;
+	return *this;
+}
+
+MyString & MyString::append(const MyString & str, size_t subpos, size_t sublen)
+{
+	int n = this->m_size;
+	this->m_size += sublen;
+	if (this->m_size > this->m_reserved_size)
+	{
+		this->m_reserved_size = this->m_size + _DEFAULT_SIZE;
+		this->m_str = (char*)realloc(this->m_str, (this->m_reserved_size + 1)*(sizeof(char)));
+	}
+	m_strncpy(this->m_str + n, str.m_str, subpos, sublen);
+	return *this;
+}
+
+MyString & MyString::append(const char * s)
+{
+	*this += s;
+	return *this;
+}
+
+MyString & MyString::append(const char * s, size_t n)
+{
+	char *temp = new char[n + 1];
+	m_strncpy(temp, s, n);
+	*this += temp;
+	delete[] temp;
+	return *this;
+}
+
+MyString & MyString::append(size_t n, char c)
+{
+	MyString temp(n, c);
+	*this += temp;
+	return *this;
+}
+
+void MyString::push_back(char c)
+{
+	*this += c;
+}
+
+MyString & MyString::assign(const MyString & str)
+{
+	// TODO: insert return statement here
+}
+
+MyString & MyString::assign(const MyString & str, size_t subpos, size_t sublen)
+{
+	// TODO: insert return statement here
+}
+
+MyString & MyString::assign(const char * s)
+{
+	// TODO: insert return statement here
+}
+
+MyString & MyString::assign(const char * s, size_t n)
+{
+	// TODO: insert return statement here
+}
+
+MyString & MyString::assign(size_t n, char c)
 {
 	// TODO: insert return statement here
 }

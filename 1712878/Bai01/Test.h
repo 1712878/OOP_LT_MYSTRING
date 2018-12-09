@@ -2,12 +2,10 @@
 #define _TEST_H__
 #include "myString.h"
 
-void Contructor();
-void OperatorEqual();
-void BeginEnd();
-void SizeLengthCapacityMax_size();
-void Resize();
-void ClearEmty();
-void ShrinkToFit();
+void MemberFunctions();
+void Iterators();
+void Capacity();
+void ElementAccess();
+void Modifiers();
 
 #endif

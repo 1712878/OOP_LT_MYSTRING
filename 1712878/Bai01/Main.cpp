@@ -4,20 +4,15 @@
 
 int main()
 {
-	//Contructor();
-	//OperatorEqual();
-	//BeginEnd();
-	//SizeLengthCapacityMax_size();
-	//Resize();
-	//ClearEmty();
-	//ShrinkToFit();
+	//MemberFunctions();
+	//Iterators();
+	//Capacity();
+	//ElementAccess();
+	//Modifiers();
 
-	string s = "nguyen tho tuan";
-	int size = s.size();
-	s.resize(size + 2);
-	s[size + 1] = 'a';
-	cout << s;
-	cout << s.at(100);
+	MyString s = "nguyen tho tua";
+	s.push_back('n');
+	cout << s << endl;
 	system("pause");
 	return 0;
 }
