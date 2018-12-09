@@ -7,5 +7,7 @@ void OperatorEqual();
 void BeginEnd();
 void SizeLengthCapacityMax_size();
 void Resize();
+void ClearEmty();
+void ShrinkToFit();
 
 #endif

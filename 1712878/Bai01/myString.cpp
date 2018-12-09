@@ -63,7 +63,7 @@ MyString operator+(const MyString & lhs, const MyString & rhs)
 	return result;
 }
 
-//Member functions/Constructors
+//Member functions
 MyString::MyString()
 {
 	this->m_size = 0;
@@ -125,7 +125,6 @@ MyString::MyString(size_t n, char c)
 	this->m_str[n] = '\0';
 }
 
-//Member functions/Destructor
 MyString::~MyString()
 {
 	delete[] this->m_str;
@@ -134,7 +133,6 @@ MyString::~MyString()
 	this->m_reserved_size = 0;
 }
 
-//Member functions/Operator =
 MyString & MyString::operator=(const MyString & str)
 {
 	this->m_size = str.m_size;
@@ -163,7 +161,7 @@ MyString & MyString::operator=(char c)
 	return *this;
 }
 
-//Iterators/begin
+//Iterators
 MyString::iterator MyString::begin()
 {
 	return this->m_str;
@@ -204,6 +202,7 @@ MyString::const_reverse_iterator MyString::rend() const
 	return const_reverse_iterator();
 }
 
+//Capacity:
 size_t MyString::size() const
 {
 	return this->m_size;
@@ -219,14 +218,16 @@ size_t MyString::max_size() const
 	return pow(2, 8*sizeof(size_t)-1) - 1;
 }
 
-
 void MyString::resize(size_t n)
 {
-	int len = n - this->m_size;
-	if (len > 0)
+	if (n > this->m_size)
 	{
-		this->m_str = (char*)realloc(this->m_str, (n + 1) * sizeof(char));
-		MyString temp(len, ' ');
+		if (n > this->m_reserved_size)
+		{
+			this->m_reserved_size = n + _DEFAULT_SIZE;
+			this->m_str = (char*)realloc(this->m_str, (this->m_reserved_size + 1) * sizeof(char));
+		}
+		MyString temp(n-this->m_size, ' ');
 		m_strcpy(this->m_str + this->m_size, temp.m_str);
 		this->m_size = n;
 	}
@@ -239,11 +240,14 @@ void MyString::resize(size_t n)
 
 void MyString::resize(size_t n, char c)
 {
-	int len = n - this->m_size;
-	if (len > 0)
+	if (n > this->m_size)
 	{
-		this->m_str = (char*)realloc(this->m_str, (n + 1) * sizeof(char));
-		MyString temp(len, c);
+		if (n > this->m_reserved_size)
+		{
+			this->m_reserved_size = n + _DEFAULT_SIZE;
+			this->m_str = (char*)realloc(this->m_str, (this->m_reserved_size + 1) * sizeof(char));
+		}
+		MyString temp(n - this->m_size, c);
 		m_strcpy(this->m_str + this->m_size, temp.m_str);
 		this->m_size = n;
 	}
@@ -259,6 +263,26 @@ size_t MyString::capacity() const
 	return this->m_reserved_size;
 }
 
+void MyString::clear()
+{
+	delete[] this->m_str;
+	this->m_str = NULL;
+	this->m_size = 0;
+	this->m_reserved_size = 0;
+}
+
+bool MyString::empty() const
+{
+	return this->m_size == 0;
+}
+
+void MyString::shrink_to_fit()
+{
+	this->m_str = (char*)realloc(this->m_str, (this->m_size + 1) * sizeof(char));
+	this->m_reserved_size = this->m_size;
+}
+
+//Element access:
 char & MyString::operator[](size_t pos)
 {
 	char x;
@@ -277,5 +301,35 @@ const char & MyString::operator[](size_t pos) const
 	else
 		x = ' ';
 	return x;
+}
+
+char & MyString::at(size_t pos)
+{
+	return this->m_str[pos];
+}
+
+const char & MyString::at(size_t pos) const
+{
+	return this->m_str[pos];
+}
+
+char & MyString::back()
+{
+	// TODO: insert return statement here
+}
+
+const char & MyString::back() const
+{
+	// TODO: insert return statement here
+}
+
+char & MyString::front()
+{
+	// TODO: insert return statement here
+}
+
+const char & MyString::front() const
+{
+	// TODO: insert return statement here
 }
 

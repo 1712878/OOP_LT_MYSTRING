@@ -1,7 +1,7 @@
 #include "Test.h"
-
 void Contructor()
 {
+	//http://www.cplusplus.com/reference/string/string/string/
 	cout << "\nCONTRUCTOR" << endl;
 	MyString s0("Initial string");
 	// constructors used in the same order as described above:
@@ -20,6 +20,7 @@ void Contructor()
 
 void OperatorEqual()
 {
+	//http://www.cplusplus.com/reference/string/string/operator=/
 	cout << "\nOPERATOREQUAL" << endl;
 	MyString str1, str2, str3;
 	str1 = "Test string: ";   // c-string
@@ -30,6 +31,7 @@ void OperatorEqual()
 
 void BeginEnd()
 {
+	//http://www.cplusplus.com/reference/string/string/end/
 	cout << "\nBEGINEND" << endl;
 	MyString str("Test string");
 	for (MyString::iterator it = str.begin(); it != str.end(); ++it)
@@ -49,6 +51,7 @@ void SizeLengthCapacityMax_size()
 
 void Resize()
 {
+	//http://www.cplusplus.com/reference/string/string/capacity/
 	cout << "\nRESIZE" << endl;
 	MyString str("I like to code in C");
 	std::cout << str << '\n';
@@ -57,4 +60,28 @@ void Resize()
 	std::cout << str << '\n';
 	str.resize(14);
 	std::cout << str << '\n';
+}
+
+void ClearEmty()
+{
+	cout << "\nCLEAREMPTY" << endl;
+	MyString s = "Nguyen Tho Tuan";
+	std::cout << "s= " << s << endl;
+	std::cout << "Check s.empty(): " << s.empty() << endl;
+	s.clear();
+	std::cout << "Check s.empty() after s.clear(): " << s.empty() << endl;
+}
+
+void ShrinkToFit()
+{
+	//http://www.cplusplus.com/reference/string/string/shrink_to_fit/
+	cout << "\nSHRINKTOFIT" << endl;
+	MyString str(100, 'x');
+	std::cout << "1. capacity of str: " << str.capacity() << '\n';
+
+	str.resize(10);
+	std::cout << "2. capacity of str: " << str.capacity() << '\n';
+
+	str.shrink_to_fit();
+	std::cout << "3. capacity of str: " << str.capacity() << '\n';
 }
