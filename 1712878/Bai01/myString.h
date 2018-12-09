@@ -18,6 +18,7 @@ class MyString
 private:
 	char *m_str;
 	int m_size;
+	int m_reserved_size;
 public:
 	//Member functions
 	MyString();
@@ -52,10 +53,10 @@ public:
 	//Capacity:
 	size_t size() const;
 	size_t length() const;
-	//size_t max_size() const;
+	size_t max_size() const;
 	void resize(size_t n);
 	void resize(size_t n, char c);
-
+	size_t capacity() const;
 	//Element access:
 	char& operator[] (size_t pos);
 	const char& operator[] (size_t pos) const;
