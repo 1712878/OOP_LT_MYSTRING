@@ -47,9 +47,14 @@ void m_strncpy(char* dest, const char* src, int n)
 void m_strncpy(char* dest, const char* src, int pos, int len)
 {
 	int nSrc = m_strlen(src);
-	if (pos + len > nSrc)
-		len = nSrc - pos;
-	m_strncpy(dest, src + pos, len);
+	if (pos < nSrc)
+	{
+		if (pos + len > nSrc)
+			len = nSrc - pos;
+		m_strncpy(dest, src + pos, len);
+	}
+	else
+		m_strcpy(dest, "");
 }
 
 MyString operator+(const MyString & lhs, const MyString & rhs)
@@ -87,7 +92,7 @@ MyString::MyString(const MyString &str, size_t pos, size_t len)
 		this->m_size = str.m_size - pos;
 		this->m_reserved_size = this->m_size + _DEFAULT_SIZE;
 		this->m_str = new char[this->m_reserved_size + 1];
-		m_strncpy(this->m_str, str.m_str, pos);
+		m_strcpy(this->m_str, str.m_str + pos);
 	}
 	else
 	{
@@ -135,6 +140,8 @@ MyString::~MyString()
 
 MyString & MyString::operator=(const MyString & str)
 {
+	if(this->m_str)
+		delete[] this->m_str;
 	this->m_size = str.m_size;
 	this->m_reserved_size = str.m_reserved_size;
 	this->m_str = new char[this->m_reserved_size + 1];
@@ -144,6 +151,8 @@ MyString & MyString::operator=(const MyString & str)
 
 MyString & MyString::operator=(const char* s)
 {
+	if (this->m_str)
+		delete[] this->m_str;
 	this->m_size = m_strlen(s);
 	this->m_reserved_size = this->m_size + _DEFAULT_SIZE;
 	this->m_str = new char[this->m_reserved_size + 1];
@@ -153,6 +162,8 @@ MyString & MyString::operator=(const char* s)
 
 MyString & MyString::operator=(char c)
 {
+	if (this->m_str)
+		delete[] this->m_str;
 	this->m_size = 1;
 	this->m_reserved_size = 1 + _DEFAULT_SIZE;
 	this->m_str = new char[this->m_reserved_size + 1];
@@ -412,26 +423,143 @@ void MyString::push_back(char c)
 
 MyString & MyString::assign(const MyString & str)
 {
-	// TODO: insert return statement here
+	*this = str;
+	return *this;
 }
 
 MyString & MyString::assign(const MyString & str, size_t subpos, size_t sublen)
 {
-	// TODO: insert return statement here
+	MyString temp(str, subpos, sublen);
+	*this = temp;
+	return *this;
 }
 
 MyString & MyString::assign(const char * s)
 {
-	// TODO: insert return statement here
+	*this = s;
+	return *this;
 }
 
 MyString & MyString::assign(const char * s, size_t n)
 {
-	// TODO: insert return statement here
+	MyString temp(s, n);
+	*this = temp;
+	return *this;
 }
 
 MyString & MyString::assign(size_t n, char c)
 {
-	// TODO: insert return statement here
+	MyString temp(n,c);
+	*this = temp;
+	return *this;
+}
+
+MyString & MyString::insert(size_t pos, const MyString & str)
+{
+	if (pos > this->m_size)
+		pos = this->m_size;
+	if (pos < this->m_size)
+	{
+		if (this->m_size + str.m_size > this->m_reserved_size)
+		{
+			this->m_reserved_size = this->m_size + str.m_size + _DEFAULT_SIZE;
+			this->m_str = (char*)realloc(this->m_str, (this->m_reserved_size + 1) * sizeof(char));
+		}
+		char *temp = new char[this->m_size - pos + 1];
+		m_strncpy(temp, this->m_str + pos, this->m_size - pos);
+		m_strcpy(this->m_str + pos, str.m_str);
+		m_strcpy(this->m_str + pos + str.m_size, temp);
+		this->m_size += str.m_size;
+		delete[] temp;
+	}
+	else
+		m_strcpy(this->m_str + pos, str.m_str);
+	return *this;
+}
+
+MyString & MyString::insert(size_t pos, const MyString & str, size_t subpos, size_t sublen)
+{
+	MyString temp(str, subpos, sublen);
+	this->insert(pos, temp);
+	return *this;
+}
+
+MyString & MyString::insert(size_t pos, const char * s)
+{
+	MyString temp(s);
+	this->insert(pos, temp);
+	return *this;
+}
+
+MyString & MyString::insert(size_t pos, const char * s, size_t n)
+{
+	MyString temp(s, n);
+	this->insert(pos, temp);
+	return *this;
+}
+
+MyString & MyString::insert(size_t pos, size_t n, char c)
+{
+	MyString temp(n,c);
+	this->insert(pos, temp);
+	return *this;
+}
+
+MyString & MyString::erase(size_t pos, size_t len)
+{
+	if (len == npos)
+	{
+		len = this->m_size - pos;
+	}
+	m_strcpy(this->m_str + pos, this->m_str + pos + len);
+	this->m_size = this->m_size - len;
+	return *this;
+}
+
+MyString & MyString::replace(size_t pos, size_t len, const MyString & str)
+{
+	this->erase(pos, len);
+	this->insert(pos, str);
+	return *this;
+}
+
+MyString & MyString::replace(size_t pos, size_t len, const MyString & str, size_t subpos, size_t sublen)
+{
+	MyString temp(str, subpos, sublen);
+	this->replace(pos, len, temp);
+	return *this;
+}
+
+MyString & MyString::replace(size_t pos, size_t len, const char * s)
+{
+	MyString temp(s);
+	this->replace(pos, len, temp);
+	return *this;
+}
+
+MyString & MyString::replace(size_t pos, size_t len, const char * s, size_t n)
+{
+	MyString temp(s, n);
+	this->replace(pos, len, temp);
+	return *this;
+}
+
+MyString & MyString::replace(size_t pos, size_t len, size_t n, char c)
+{
+	MyString temp(n, c);
+	this->replace(pos, len, temp);
+	return *this;
+}
+
+void MyString::swap(MyString & str)
+{
+	MyString temp = str;
+	str = *this;
+	*this = temp;
+}
+
+void MyString::pop_back()
+{
+	m_strncpy(this->m_str, this->m_str, this->m_size - 1);
 }
 

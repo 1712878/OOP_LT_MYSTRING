@@ -10,9 +10,9 @@ int m_strcmp(const char *s1, const char* s2);
 void m_strcpy(char* dest, const char* src);
 void m_strncpy(char* dest, const char* src, int n);
 void m_strncpy(char* dest, const char* src, int pos, int len);
-const int _DEFAULT_SIZE = 4;
+const int _DEFAULT_SIZE = 32;
 const size_t _MAX_LENGTH = 1024;
-const int npos = -1;
+static const size_t npos = -1;
 class MyString
 {
 private:
@@ -23,7 +23,7 @@ public:
 	//Member functions
 	MyString();
 	MyString(const MyString& str);
-	MyString(const MyString& str, size_t pos, size_t len);
+	MyString(const MyString& str, size_t pos, size_t len = npos);
 	MyString(const char* s);
 	MyString(const char* s, size_t n);
 	MyString(size_t n, char c);
@@ -97,6 +97,38 @@ public:
 	//MyString& assign(InputIterator first, InputIterator last);
 	//MyString& assign(initializer_list<char> il);
 	//MyString& assign(MyString&& str) noexcept;
+
+	MyString& insert(size_t pos, const MyString& str);
+	MyString& insert(size_t pos, const MyString& str, size_t subpos, size_t sublen = npos);
+	MyString& insert(size_t pos, const char* s);
+	MyString& insert(size_t pos, const char* s, size_t n);
+	MyString& insert(size_t pos, size_t n, char c);
+	//iterator insert(const_iterator p, size_t n, char c);
+	//iterator insert(const_iterator p, char c);
+	//template <class InputIterator>
+	//iterator insert(iterator p, InputIterator first, InputIterator last);
+	//MyString& insert(const_iterator p, initializer_list<char> il);
+
+	MyString& erase(size_t pos = 0, size_t len = npos);
+	//iterator erase(const_iterator p);
+	//iterator erase(const_iterator first, const_iterator last);
+
+	MyString& replace(size_t pos, size_t len, const MyString& str);
+	//MyString& replace(const_iterator i1, const_iterator i2, const MyString& str);
+	MyString& replace(size_t pos, size_t len, const MyString& str,size_t subpos, size_t sublen);
+	MyString& replace(size_t pos, size_t len, const char* s);
+	//MyString& replace(const_iterator i1, const_iterator i2, const char* s);
+	MyString& replace(size_t pos, size_t len, const char* s, size_t n);
+	//MyString& replace(const_iterator i1, const_iterator i2, const char* s, size_t n);
+	MyString& replace(size_t pos, size_t len, size_t n, char c);
+	//MyString& replace(const_iterator i1, const_iterator i2, size_t n, char c);
+	//template <class InputIterator>
+	//MyString& replace(const_iterator i1, const_iterator i2, InputIterator first, InputIterator last);
+	//MyString& replace(const_iterator i1, const_iterator i2, initializer_list<char> il);
+
+	void swap(MyString& str);
+
+	void pop_back();
 
 	friend MyString operator+ (const MyString& lhs, const MyString& rhs);
 	friend istream& operator >> (istream& inDev, MyString& mstr)

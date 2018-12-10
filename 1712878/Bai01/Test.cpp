@@ -111,7 +111,7 @@ void Modifiers()
 	MyString str2 = "Writing ";
 	MyString str3 = "print 10 and then 5 more";
 
-	std::cout << "2. operator+=\n";
+	std::cout << "2. append\n";
 	// used in the same order as described above:
 	str.append(str2);                       // "Writing "
 	str.append(str3, 6, 3);                   // "10 "
@@ -124,4 +124,89 @@ void Modifiers()
 	MyString s = "nguyen tho tua";
 	s.push_back('n');
 	cout << s << endl;
+
+	std::cout << "4. assign\n";
+	//MyString str;
+	MyString base = "The quick brown fox jumps over a lazy dog.";
+	// used in the same order as described above:
+	str.assign(base);
+	std::cout << str << '\n';
+	str.assign(base, 10, 9);
+	std::cout << str << '\n';         // "brown fox"
+	str.assign("pangrams are cool", 7);
+	std::cout << str << '\n';         // "pangram"
+	str.assign("c-string");
+	std::cout << str << '\n';         // "c-string"
+	str.assign(10, '*');
+	std::cout << str << '\n';         // "**********"
+	//str.assign<int>(10, 0x2D);
+	//std::cout << str << '\n';         // "----------"
+	//str.assign(base.begin() + 16, base.end() - 12);
+	//std::cout << str << '\n';         // "fox jumps over"
+
+	std::cout << "5. Insert\n";
+	/*MyString*/ str = "to be question";
+	/*MyString*/ str2 = "the ";
+	/*MyString */str3 = "or not to be";
+	//std::string::iterator it;
+	// used in the same order as described above:
+	str.insert(6, str2);                 // to be (the )question
+	str.insert(6, str3, 3, 4);             // to be (not )the question
+	str.insert(10, "that is cool", 8);    // to be not (that is )the question
+	str.insert(10, "to be ");            // to be not (to be )that is the question
+	str.insert(15, 1, ':');               // to be not to be(:) that is the question
+	//it = str.insert(str.begin() + 5, ','); // to be(,) not to be: that is the question
+	//str.insert(str.end(), 3, '.');       // to be, not to be: that is the question(...)
+	//str.insert(it + 2, str3.begin(), str3.begin() + 3); // (or )
+	std::cout << str << '\n';
+
+	std::cout << "\n6. Erase\n";
+	/*MyString*/ str="This is an example sentence.";
+	std::cout << str << '\n';
+	// "This is an example sentence."
+	str.erase(10, 8);                        //            ^^^^^^^^
+	std::cout << str << '\n';
+	// "This is an sentence."
+	//str.erase(str.begin() + 9);               //           ^
+	//std::cout << str << '\n';
+	// "This is a sentence."
+	//str.erase(str.begin() + 5, str.end() - 9);  //       ^^^^^
+	//std::cout << str << '\n';
+	// "This sentence."
+
+	std::cout << "\n7. Replace\n";
+	/*MyString*/ base = "this is a test string.";
+	/*MyString*/ str2 = "n example";
+	/*MyString*/ str3 = "sample phrase";
+	MyString str4 = "useful.";
+	// replace signatures used in the same order as described above:
+	// Using positions:                 0123456789*123456789*12345
+	/*MyString*/ str = base;           // "this is a test string."
+	str.replace(9, 5, str2);          // "this is an example string." (1)
+	str.replace(19, 6, str3, 7, 6);     // "this is an example phrase." (2)
+	str.replace(8, 10, "just a");     // "this is just a phrase."     (3)
+	str.replace(8, 6, "a shorty", 7);  // "this is a short phrase."    (4)
+	str.replace(22, 1, 3, '!');        // "this is a short phrase!!!"  (5)
+	// Using iterators:                                               0123456789*123456789*
+	//str.replace(str.begin(), str.end() - 3, str3);                    // "sample phrase!!!"      (1)
+	//str.replace(str.begin(), str.begin() + 6, "replace");             // "replace phrase!!!"     (3)
+	//str.replace(str.begin() + 8, str.begin() + 14, "is coolness", 7);    // "replace is cool!!!"    (4)
+	//str.replace(str.begin() + 12, str.end() - 4, 4, 'o');                // "replace is cooool!!!"  (5)
+	//str.replace(str.begin() + 11, str.end(), str4.begin(), str4.end());// "replace is useful."    (6)
+	std::cout << str << '\n';
+
+	std::cout << "\n8.Swap \n";
+	MyString buyer("money");
+	MyString seller("goods");
+	std::cout << "Before the swap, buyer has " << buyer;
+	std::cout << " and seller has " << seller << '\n';
+	seller.swap(buyer);
+	std::cout << " After the swap, buyer has " << buyer;
+	std::cout << " and seller has " << seller << '\n';
+
+	std::cout << "\n9.Pop_back \n";
+	/*MyString*/ str = "hello world!";
+	str.pop_back();
+	std::cout << str << '\n';
 }
+
