@@ -7,5 +7,6 @@ void Iterators();
 void Capacity();
 void ElementAccess();
 void Modifiers();
+void StringOperations();
 
 #endif

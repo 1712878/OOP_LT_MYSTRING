@@ -7,6 +7,7 @@ using namespace std;
 
 int m_strlen(const char *s);
 int m_strcmp(const char *s1, const char* s2);
+int m_strncmp(const char *s1, const char* s2, int n);
 void m_strcpy(char* dest, const char* src);
 void m_strncpy(char* dest, const char* src, int n);
 void m_strncpy(char* dest, const char* src, int pos, int len);
@@ -34,6 +35,7 @@ public:
 	MyString& operator= (const char* s);
 	MyString& operator= (char c);
 
+
 	//Iterators
 	typedef char* iterator;
 	typedef const char* const_iterator;
@@ -50,6 +52,7 @@ public:
 	const_reverse_iterator rend() const;
 	//.............
 
+
 	//Capacity:
 	size_t size() const;
 	size_t length() const;
@@ -62,6 +65,7 @@ public:
 	bool empty() const;
 	void shrink_to_fit();
 
+
 	//Element access:
 	char& operator[] (size_t pos);
 	const char& operator[] (size_t pos) const;
@@ -71,6 +75,7 @@ public:
 	const char& back() const;
 	char& front();
 	const char& front() const;
+
 
 	//Modifiers
 	MyString& operator+= (const MyString& str);
@@ -130,7 +135,60 @@ public:
 
 	void pop_back();
 
+
+	//String operations:
+	const char* c_str() const;
+
+	const char* data() const;
+
+	//allocator_type get_allocator() const;
+
+	size_t copy(char* s, size_t len, size_t pos = 0) const;
+
+	size_t find(const MyString& str, size_t pos = 0) const;
+	size_t find(const char* s, size_t pos = 0) const;
+	size_t find(const char* s, size_t pos, size_t n) const;
+	size_t find(char c, size_t pos = 0) const;
+
+	size_t rfind(const MyString& str, size_t pos = npos) const;
+	size_t rfind(const char* s, size_t pos = npos) const;
+	size_t rfind(const char* s, size_t pos, size_t n) const;
+	size_t rfind(char c, size_t pos = npos) const;
+
+	size_t find_first_of(const MyString& str, size_t pos = 0) const;
+	size_t find_first_of(const char* s, size_t pos = 0) const;
+	size_t find_first_of(const char* s, size_t pos, size_t n) const;
+	size_t find_first_of(char c, size_t pos = 0) const;
+
+	size_t find_last_of(const MyString& str, size_t pos = npos) const;
+	size_t find_last_of(const char* s, size_t pos = npos) const;
+	size_t find_last_of(const char* s, size_t pos, size_t n) const;
+	size_t find_last_of(char c, size_t pos = npos) const;
+
+	size_t find_first_not_of(const MyString& str, size_t pos = 0) const;
+	size_t find_first_not_of(const char* s, size_t pos = 0) const;
+	size_t find_first_not_of(const char* s, size_t pos, size_t n) const;
+	size_t find_first_not_of(char c, size_t pos = 0) const;
+
+	size_t find_last_not_of(const MyString& str, size_t pos = npos) const;
+	size_t find_last_not_of(const char* s, size_t pos = npos) const;
+	size_t find_last_not_of(const char* s, size_t pos, size_t n) const;
+	size_t find_last_not_of(char c, size_t pos = npos) const;
+
+	MyString substr(size_t pos = 0, size_t len = npos) const;
+
+	int compare(const MyString& str) const;
+	int compare(size_t pos, size_t len, const MyString& str) const;
+	int compare(size_t pos, size_t len, const MyString& str, size_t subpos, size_t sublen) const;
+	int compare(const char* s) const;
+	int compare(size_t pos, size_t len, const char* s) const;
+	int compare(size_t pos, size_t len, const char* s, size_t n) const;
+
+	//Non-member function overloads
 	friend MyString operator+ (const MyString& lhs, const MyString& rhs);
+	friend MyString operator+ (const char*   lhs, const MyString& rhs);
+	friend MyString operator+ (const MyString& lhs, char          rhs);
+	friend MyString operator+ (char         lhs, const MyString& rhs);
 	friend istream& operator >> (istream& inDev, MyString& mstr)
 	{
 		char* s= new char[_MAX_LENGTH];
