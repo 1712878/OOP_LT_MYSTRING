@@ -5,23 +5,8 @@ const float PI = 3.14;
 class Figure
 {
 public:
-	Figure() {}
-	virtual void Input(istream& inDev) {}
-	virtual float Area() { return 0; }
-	Figure* FigMaxArea(Figure* Figs[], int nFig)
-	{
-		Figure* FigMax = NULL;
-		if (nFig > 0)
-		{
-			FigMax = Figs[0];
-			for (int i = 0; i < nFig; i++)
-			{
-				if (FigMax->Area() < Figs[i]->Area())
-					FigMax = Figs[i];
-			}
-		}
-		return FigMax;
-	}
+	virtual void Input(istream& inDev) = 0;
+	virtual float Area() = 0;
 };
 
 class Rectangle : public Figure
@@ -90,17 +75,61 @@ public:
 		this->Ra = this->Rb;
 	}
 };
-int main()
-{
-	Figure *Fig;// = new Figure();
-	Ellipse Rec(4,5);
-	Circle Sq(5);
-	Fig = &Rec;
-	cout << Fig->Area() << endl;
-	Fig = &Sq;
-	cout << Fig->Area() << endl;
 
-	//delete Fig;
+class Triangle :public Figure
+{
+private:
+	float basesize, height;
+public:
+	Triangle(float basesize, float height)
+	{
+		this->basesize = basesize;
+		this->height = height;
+	}
+	virtual void Input(istream& inDev)
+	{
+		inDev >> this->basesize >> this->height;
+	}
+	virtual float Area()
+	{
+		return 0.5*this->basesize*this->height;
+	}
+};
+
+Figure* FigMaxArea(Figure* Figs[], int nFig)
+{
+	Figure* FigMax = NULL;
+	if (nFig > 0)
+	{
+		FigMax = Figs[0];
+		for (int i = 0; i < nFig; i++)
+		{
+			if (FigMax->Area() < Figs[i]->Area())
+				FigMax = Figs[i];
+		}
+	}
+	return FigMax;
+}
+
+int main()
+
+{
+	//Figure *Fig;
+	//Rectangle Rec(4,5);
+	//Square Sq(5);
+	//Fig = &Rec;
+	//cout << Fig->Area() << endl;
+	//Fig = &Sq;
+	//cout << Fig->Area() << endl;
+	
+	Figure* Figs[] = { new Rectangle(9.3,9.7), new Circle(4.5), new Ellipse(4.2, 4.7),
+					   new Square(9.5), new Triangle(10.7, 6.4), new Ellipse(3.7,7.8) };
+	int nFig = sizeof(Figs) / sizeof(Figure*);
+	Figure *aFig = FigMaxArea(Figs, nFig);
+	if (aFig != NULL)
+	{
+		cout << aFig->Area() << endl;
+	}
 	system("pause");
 	return 0;
 }
