@@ -6,6 +6,7 @@ class Figure
 {
 public:
 	virtual const char* className() = 0;
+	virtual Figure* Clone() = 0;
 	virtual void Input(istream& inDev) = 0;
 	virtual float Area() = 0;
 };
@@ -23,6 +24,10 @@ public:
 	virtual const char* className()
 	{
 		return "Rectangle";
+	}
+	virtual Figure* Clone()
+	{
+		return new Rectangle(*this);
 	}
 	virtual void Input(istream& inDev)
 	{
@@ -47,6 +52,10 @@ public:
 	{
 		return "Square";
 	}
+	virtual Figure* Clone()
+	{
+		return new Square(*this);
+	}
 	virtual void Input(istream& inDev)
 	{
 		inDev >> this->wight;
@@ -68,6 +77,10 @@ public:
 	{
 		return "Ellipse";
 	}
+	virtual Figure* Clone()
+	{
+		return new Ellipse(*this);
+	}
 	virtual void Input(istream& inDev)
 	{
 		inDev >> this->Ra >> this->Rb;
@@ -85,6 +98,10 @@ public:
 	virtual const char* className()
 	{
 		return "Circle";
+	}
+	virtual Figure* Clone()
+	{
+		return new Circle(*this);
 	}
 	virtual void Input(istream& inDev)
 	{
@@ -106,6 +123,10 @@ public:
 	virtual const char* className()
 	{
 		return "Triangle";
+	}
+	virtual Figure* Clone()
+	{
+		return new Triangle(*this);
 	}
 	virtual void Input(istream& inDev)
 	{
@@ -132,18 +153,24 @@ Figure* FigMaxArea(Figure* Figs[], int nFig)
 	return FigMax;
 }
 
+Figure* Cloning(Figure* pFig)
+{
+	if (pFig == NULL)
+		return NULL;
+	return pFig->Clone();
+}
 int main()
 
 {
-	//Figure *Fig;
-	//Rectangle Rec(4,5);
-	//Square Sq(5);
-	//Fig = &Rec;
-	//cout << Fig->Area() << endl;
-	//Fig = &Sq;
-	//cout << Fig->Area() << endl;
+	/*Figure* Fig;
+	Rectangle Rec(4,5);
+	Square Sq(5);
+	Fig = &Rec;
+	cout << Fig->Area() << endl;
+	Fig = &Sq;
+	cout << Fig->Area() << endl;*/
 	
-	Figure* Figs[] = { new Rectangle(9.3,9.7), new Circle(4.5), new Ellipse(4.2, 4.7),
+	/*Figure* Figs[] = { new Rectangle(9.3,9.7), new Circle(4.5), new Ellipse(4.2, 4.7),
 					   new Square(9.5), new Triangle(10.7, 6.4), new Ellipse(3.7,7.8) };
 	int nFig = sizeof(Figs) / sizeof(Figure*);
 	cout << "nFig = " << nFig << endl;
@@ -157,7 +184,16 @@ int main()
 	{
 		cout << "Area max is figure " << aFig->className() << ", Area= ";
 		cout << aFig->Area() << endl;
-	}
+	}*/
+
+	Rectangle Rec(4, 5);
+	Square Sq(5);
+	Figure* Fig;
+	Fig = Cloning(&Rec);
+	cout << Fig->className() << ", Area: " << Fig->Area() << endl; // Fig is cloning Rec
+	Fig = Cloning(&Sq);
+	cout << Fig->className() << ", Area: " << Fig->Area() << endl; //// Fig is cloning Sq
+
 	system("pause");
 	return 0;
 }
