@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bai01", "Bai01\Bai01.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Figure", "Figure\Figure.vcxproj", "{3CB6F87B-7E20-4874-9709-671B4C13DFC2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vitrual Destruction", "Vitrual Destruction\Vitrual Destruction.vcxproj", "{98823B3D-ECE8-4D6F-B8D4-2144295B7F73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{3CB6F87B-7E20-4874-9709-671B4C13DFC2}.Release|x64.Build.0 = Release|x64
 		{3CB6F87B-7E20-4874-9709-671B4C13DFC2}.Release|x86.ActiveCfg = Release|Win32
 		{3CB6F87B-7E20-4874-9709-671B4C13DFC2}.Release|x86.Build.0 = Release|Win32
+		{98823B3D-ECE8-4D6F-B8D4-2144295B7F73}.Debug|x64.ActiveCfg = Debug|x64
+		{98823B3D-ECE8-4D6F-B8D4-2144295B7F73}.Debug|x64.Build.0 = Debug|x64
+		{98823B3D-ECE8-4D6F-B8D4-2144295B7F73}.Debug|x86.ActiveCfg = Debug|Win32
+		{98823B3D-ECE8-4D6F-B8D4-2144295B7F73}.Debug|x86.Build.0 = Debug|Win32
+		{98823B3D-ECE8-4D6F-B8D4-2144295B7F73}.Release|x64.ActiveCfg = Release|x64
+		{98823B3D-ECE8-4D6F-B8D4-2144295B7F73}.Release|x64.Build.0 = Release|x64
+		{98823B3D-ECE8-4D6F-B8D4-2144295B7F73}.Release|x86.ActiveCfg = Release|Win32
+		{98823B3D-ECE8-4D6F-B8D4-2144295B7F73}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
