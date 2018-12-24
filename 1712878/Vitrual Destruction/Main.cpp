@@ -79,8 +79,12 @@ public:
 
 int main()
 {
+	Point A(4, 5);
+	Point B(-3, 11);
 	Polygon *pg = new RECT(Point(4, 5), Point(-3, 11));
 	cout << pg->nVertice() << endl;
+	delete pg;
+	
 	system("pause");
 	return 0;
 }

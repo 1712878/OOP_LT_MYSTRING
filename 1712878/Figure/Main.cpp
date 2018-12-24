@@ -5,6 +5,7 @@ const float PI = 3.14;
 class Figure
 {
 public:
+	virtual const char* className() = 0;
 	virtual void Input(istream& inDev) = 0;
 	virtual float Area() = 0;
 };
@@ -18,6 +19,10 @@ public:
 	{
 		this->wight = wight;
 		this->height = height;
+	}
+	virtual const char* className()
+	{
+		return "Rectangle";
 	}
 	virtual void Input(istream& inDev)
 	{
@@ -38,6 +43,10 @@ public:
 		//Square(float a = 0):Rectangle(a,a){}
 		//Square(float a = 0){ Rectangle(a,a); }
 	}
+	virtual const char* className()
+	{
+		return "Square";
+	}
 	virtual void Input(istream& inDev)
 	{
 		inDev >> this->wight;
@@ -55,6 +64,10 @@ public:
 		this->Ra = Ra;
 		this->Rb = Rb;
 	}
+	virtual const char* className()
+	{
+		return "Ellipse";
+	}
 	virtual void Input(istream& inDev)
 	{
 		inDev >> this->Ra >> this->Rb;
@@ -69,6 +82,10 @@ class Circle :public Ellipse
 {
 public:
 	Circle(float R = 0) :Ellipse(R, R) {}
+	virtual const char* className()
+	{
+		return "Circle";
+	}
 	virtual void Input(istream& inDev)
 	{
 		inDev >> this->Ra;
@@ -85,6 +102,10 @@ public:
 	{
 		this->basesize = basesize;
 		this->height = height;
+	}
+	virtual const char* className()
+	{
+		return "Triangle";
 	}
 	virtual void Input(istream& inDev)
 	{
@@ -125,9 +146,16 @@ int main()
 	Figure* Figs[] = { new Rectangle(9.3,9.7), new Circle(4.5), new Ellipse(4.2, 4.7),
 					   new Square(9.5), new Triangle(10.7, 6.4), new Ellipse(3.7,7.8) };
 	int nFig = sizeof(Figs) / sizeof(Figure*);
+	cout << "nFig = " << nFig << endl;
+	for (int i = 0; i < nFig; i++)
+	{
+		cout << i + 1 << ". ";
+		cout << Figs[i]->className() << ", Area: " << Figs[i]->Area() << endl;
+	}
 	Figure *aFig = FigMaxArea(Figs, nFig);
 	if (aFig != NULL)
 	{
+		cout << "Area max is figure " << aFig->className() << ", Area= ";
 		cout << aFig->Area() << endl;
 	}
 	system("pause");
