@@ -10,7 +10,7 @@ int main()
 	Fig = &Sq;
 	cout << Fig->Area() << endl;*/
 	
-	/*Figure* Figs[] = { new Rectangle(9.3,9.7), new Circle(4.5), new Ellipse(4.2, 4.7),
+	Figure* Figs[] = { new Rectangle(9.3,9.7), new Circle(4.5), new Ellipse(4.2, 4.7),
 					   new Square(9.5), new Triangle(10.7, 6.4), new Ellipse(3.7,7.8) };
 	int nFig = sizeof(Figs) / sizeof(Figure*);
 	cout << "nFig = " << nFig << endl;
@@ -24,7 +24,7 @@ int main()
 	{
 		cout << "Area max is figure " << aFig->className() << ", Area= ";
 		cout << aFig->Area() << endl;
-	}*/
+	}
 
 	/*Rectangle Rec(4, 5);
 	Square Sq(5);
@@ -34,7 +34,12 @@ int main()
 	Fig = Cloning(&Sq);
 	cout << Fig->className() << ", Area: " << Fig->Area() << endl;*/
 
-	
+
+	Figure* Fig = Figure::createObject("Ellipse");
+	if (Fig != NULL)
+	{
+		cout << Fig->className() << ", Area: " << Fig->Area() << endl;
+	}
 
 	system("pause");
 	return 0;

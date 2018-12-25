@@ -14,7 +14,7 @@ protected:
 public:
 	virtual const char* className() = 0;
 	virtual Figure* Clone() = 0;
-	virtual Figure* createObject(const char* clsName);
+	static Figure* createObject(const char* clsName);
 	virtual void Input(istream& inDev) = 0;
 	virtual float Area() = 0;
 };
