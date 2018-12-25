@@ -1,12 +1,47 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 const float PI = 3.14;
 
 class Figure
 {
+	static vector<Figure*> sampleObjects;
+protected:
+	static void addSample(Figure* pFig)
+	{
+		if (pFig == NULL)
+			return;
+		int pos = sampleObjects.size();
+		while (--pos >= 0)
+		{
+			Figure* Obj = sampleObjects[pos];
+			if (strcmp(pFig->className(), Obj->className()) == 0)
+				break;
+		}
+		if (pos < 0)
+			sampleObjects.push_back(pFig);
+	}
 public:
 	virtual const char* className() = 0;
 	virtual Figure* Clone() = 0;
+	virtual Figure* createObject(const char* clsName)
+	{
+		if (clsName == NULL)
+			return NULL;
+		int pos = sampleObjects.size();
+		while (--pos >= 0)
+		{
+			Figure* Obj = sampleObjects[pos];
+			if (Obj == NULL)
+				continue;
+			if (strcmp(clsName, Obj->className()) == 0)
+				break;
+		}
+		if (pos >= 0)
+			return sampleObjects[pos]->Clone();
+		else
+			return NULL;
+	}
 	virtual void Input(istream& inDev) = 0;
 	virtual float Area() = 0;
 };
@@ -20,6 +55,7 @@ public:
 	{
 		this->wight = wight;
 		this->height = height;
+		addSample(this);
 	}
 	virtual const char* className()
 	{
@@ -45,6 +81,7 @@ public:
 	Square(float a = 0)
 	{
 		this->height = this->wight = a;
+		addSample(this);
 		//Square(float a = 0):Rectangle(a,a){}
 		//Square(float a = 0){ Rectangle(a,a); }
 	}
@@ -72,6 +109,7 @@ public:
 	{
 		this->Ra = Ra;
 		this->Rb = Rb;
+		addSample(this);
 	}
 	virtual const char* className()
 	{
@@ -94,7 +132,10 @@ public:
 class Circle :public Ellipse
 {
 public:
-	Circle(float R = 0) :Ellipse(R, R) {}
+	Circle(float R = 0) :Ellipse(R, R) 
+	{
+		addSample(this);
+	}
 	virtual const char* className()
 	{
 		return "Circle";
@@ -119,6 +160,7 @@ public:
 	{
 		this->basesize = basesize;
 		this->height = height;
+		addSample(this);
 	}
 	virtual const char* className()
 	{
@@ -159,8 +201,8 @@ Figure* Cloning(Figure* pFig)
 		return NULL;
 	return pFig->Clone();
 }
-int main()
 
+int main()
 {
 	/*Figure* Fig;
 	Rectangle Rec(4,5);
@@ -186,14 +228,15 @@ int main()
 		cout << aFig->Area() << endl;
 	}*/
 
-	Rectangle Rec(4, 5);
+	/*Rectangle Rec(4, 5);
 	Square Sq(5);
 	Figure* Fig;
 	Fig = Cloning(&Rec);
 	cout << Fig->className() << ", Area: " << Fig->Area() << endl; // Fig is cloning Rec
 	Fig = Cloning(&Sq);
-	cout << Fig->className() << ", Area: " << Fig->Area() << endl; //// Fig is cloning Sq
+	cout << Fig->className() << ", Area: " << Fig->Area() << endl; // Fig is cloning Sq*/
 
+	
 	system("pause");
 	return 0;
 }
