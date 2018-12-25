@@ -62,6 +62,11 @@ float Rectangle::Area()
 	return this->wight * this->height;
 }
 
+bool Rectangle::IsValid()
+{
+	return this->wight > 0 && this->height > 0;
+}
+
 Square::Square(float a)
 {
 	this->height = this->wight = a;
@@ -113,6 +118,11 @@ float Ellipse::Area()
 	return PI * this->Ra * this->Rb;
 }
 
+bool Ellipse::IsValid()
+{
+	return this->Ra > 0 && this->Rb > 0;
+}
+
 Circle::Circle(float R) :Ellipse(R, R)
 {
 	addSample(this);
@@ -159,6 +169,11 @@ void Triangle::Input(istream & inDev)
 float Triangle::Area()
 {
 	return 0.5*this->basesize*this->height;
+}
+
+bool Triangle::IsValid()
+{
+	return this->height > 0 && this->basesize > 0;
 }
 
 Figure * FigMaxArea(Figure * Figs[], int nFig)

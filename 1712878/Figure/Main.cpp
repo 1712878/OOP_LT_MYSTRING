@@ -1,5 +1,5 @@
 #include "Figure.h"
-
+#include "ProgramFrame.h"
 int main()
 {
 	/*Figure* Fig;
@@ -35,12 +35,14 @@ int main()
 	cout << Fig->className() << ", Area: " << Fig->Area() << endl;*/
 
 
-	Figure* Fig = Figure::createObject("Ellipse");
+	/*Figure* Fig = Figure::createObject("Ellipse");
 	if (Fig != NULL)
 	{
 		cout << Fig->className() << ", Area: " << Fig->Area() << endl;
-	}
+	}*/
 
+	FigureTest fTest(Figure::createObject("Square"));
+	fTest.Run(cin, cout);
 	system("pause");
 	return 0;
 }

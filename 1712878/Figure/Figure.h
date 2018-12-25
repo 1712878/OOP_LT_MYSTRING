@@ -17,6 +17,7 @@ public:
 	static Figure* createObject(const char* clsName);
 	virtual void Input(istream& inDev) = 0;
 	virtual float Area() = 0;
+	virtual bool IsValid() = 0;
 };
 
 class Rectangle : public Figure
@@ -29,6 +30,7 @@ public:
 	virtual Figure* Clone();
 	virtual void Input(istream& inDev);
 	virtual float Area();
+	virtual bool IsValid();
 };
 
 class Square : public Rectangle
@@ -50,6 +52,7 @@ public:
 	virtual Figure* Clone();
 	virtual void Input(istream& inDev);
 	virtual float Area();
+	virtual bool IsValid();
 };
 
 class Circle :public Ellipse
@@ -66,11 +69,12 @@ class Triangle :public Figure
 private:
 	float basesize, height;
 public:
-	Triangle(float basesize, float height);
+	Triangle(float basesize = 0, float height = 0);
 	virtual const char* className();
 	virtual Figure* Clone();
 	virtual void Input(istream& inDev);
 	virtual float Area();
+	virtual bool IsValid();
 };
 
 Figure* FigMaxArea(Figure* Figs[], int nFig);

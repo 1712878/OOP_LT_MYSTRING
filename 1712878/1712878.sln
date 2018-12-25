@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Figure", "Figure\Figure.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vitrual Destruction", "Vitrual Destruction\Vitrual Destruction.vcxproj", "{98823B3D-ECE8-4D6F-B8D4-2144295B7F73}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProgramFrame", "ProgramFrame\ProgramFrame.vcxproj", "{51B2254F-BB55-4662-817A-61A31172A65C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{98823B3D-ECE8-4D6F-B8D4-2144295B7F73}.Release|x64.Build.0 = Release|x64
 		{98823B3D-ECE8-4D6F-B8D4-2144295B7F73}.Release|x86.ActiveCfg = Release|Win32
 		{98823B3D-ECE8-4D6F-B8D4-2144295B7F73}.Release|x86.Build.0 = Release|Win32
+		{51B2254F-BB55-4662-817A-61A31172A65C}.Debug|x64.ActiveCfg = Debug|x64
+		{51B2254F-BB55-4662-817A-61A31172A65C}.Debug|x64.Build.0 = Debug|x64
+		{51B2254F-BB55-4662-817A-61A31172A65C}.Debug|x86.ActiveCfg = Debug|Win32
+		{51B2254F-BB55-4662-817A-61A31172A65C}.Debug|x86.Build.0 = Debug|Win32
+		{51B2254F-BB55-4662-817A-61A31172A65C}.Release|x64.ActiveCfg = Release|x64
+		{51B2254F-BB55-4662-817A-61A31172A65C}.Release|x64.Build.0 = Release|x64
+		{51B2254F-BB55-4662-817A-61A31172A65C}.Release|x86.ActiveCfg = Release|Win32
+		{51B2254F-BB55-4662-817A-61A31172A65C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

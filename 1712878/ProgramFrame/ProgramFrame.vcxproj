@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{3CB6F87B-7E20-4874-9709-671B4C13DFC2}</ProjectGuid>
-    <RootNamespace>Figure</RootNamespace>
+    <ProjectGuid>{51B2254F-BB55-4662-817A-61A31172A65C}</ProjectGuid>
+    <RootNamespace>ProgramFrame</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -115,12 +115,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Figure.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ProgramFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Figure.h" />
     <ClInclude Include="ProgramFrame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
